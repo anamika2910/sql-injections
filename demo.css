@@ -1,0 +1,22 @@
+
+
+.main{
+	width:1000px;
+	/* Centering it in the middle of the page */
+	margin:20px auto;
+}
+
+.card{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.divider{
+    width:10px;
+    height:80px;
+    display:inline-block;
+}
+
+.center{
+	margin-left:250px;
+}

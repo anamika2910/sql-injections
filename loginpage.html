@@ -1,0 +1,63 @@
+  <html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="demo.css">
+
+
+  </head>
+
+  <body>
+  	<div class="page-header">
+  	<h1 align="center" class="text-muted" >SQL-Injection Attacks</h1>
+  	</div>
+  	<div class="row">
+  	<div class="col-sm-2">
+  	<ul class="nav nav-pills nav-stacked">
+      <li><a href="#">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Menu 1
+        <span class="caret"></span></a>
+        <ul class="nav dropdown-menu">
+          <li><a href="#">Submenu 1-1</a></li>
+          <li><a href="#">Submenu 1-2</a></li>
+          <li><a href="#">Submenu 1-3</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Menu 2</a></li>
+      <li><a href="#">Menu 3</a></li>
+    </ul>
+  	</div>
+
+  	<div class="main">
+  	<div class="col-sm-8">
+  	<div class="row">
+
+  	<form  action="welcome.php" method="post">
+  		<div class="col-sm-2"></div>
+  		<div class="col-md-8">
+  		<div class="input-group">
+  		    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  		    <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+  		</div>
+  		<br>
+  		<div class="input-group">
+  		    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+  		    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+  		</div>
+  		<br>
+  		<div class="center">
+  		<input type="submit" name="submit" value="Login" class="btn btn-info" />
+  		</div>
+      <a href="forgotpassword.php?try=0" data-toggle="tooltip" title="Click here">Forgot your password?</a>
+  	 </div>
+  	</form>
+  </div>
+  </div>
+  </div>
+  </body>
+  </html>
