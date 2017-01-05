@@ -25,6 +25,7 @@
       <li class="active"><a href="test2.php">Test-2:Schema field mapping</a></li>
       <li><a href="test3.php">Test-3:Finding the table name </a></li>
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
+       <li><a href="test5.php">Test-5:Brute force password testing </a></li>
     </ul>
     <div class="well"> 
     The first steps are to guess some field names.

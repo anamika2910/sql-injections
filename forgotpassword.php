@@ -26,6 +26,7 @@
       <li><a href="test2.php">Test-2:Schema field mapping</a></li>
       <li><a href="test3.php">Test-3:Finding the table name </a></li>
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
+      <li><a href="test5.php">Test-5:Brute force password testing </a></li>
     </ul>
     <div class="well"> 
     The intention of this test is to see if the application constructs an SQL string literally without sanitizing.
@@ -108,9 +109,10 @@
                 }
             } 
             else if($result->num_rows>0){
-
+                $headers='From:root@anamika.com';
+                $mail=mail('root@anamika.com','hello','hjsdj',$headers);
                 $row = $result->fetch_assoc();
-                echo "The response can vary for different applications, however here information ";
+                echo $mail."The response can vary for different applications, however here information ";
                 echo "is being sent to first record from the database."."</p><br></div>"; 
             ?>
             <div class="card">

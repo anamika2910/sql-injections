@@ -24,6 +24,7 @@
       <li ><a href="test2.php">Test-2:Schema field mapping</a></li>
       <li class="active"><a href="">Test-3:Finding the table name </a></li>
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
+       <li><a href="test5.php">Test-5:Brute force password testing </a></li>
     </ul>
     <div class="well"> 
     The application's built-in query already has the table name built into it, but we don't know what that name is.We can find it using various techniques eg. <b>subselect</b>.
