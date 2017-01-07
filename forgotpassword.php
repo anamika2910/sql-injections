@@ -1,5 +1,6 @@
 <?php
  require "dbconnect.php";
+ if($_SESSION['test']!=7)
  session_start();
  $_SESSION['msg']==null;
 ?>
@@ -37,7 +38,7 @@
 <div class="col-sm-6">
       
       <?php
-        if($_GET["try"]!=1){
+        if($_GET["try"]!=1||$_GET["send"]==1){
           //echo $_GET["redirect"]==null;
           ?>
 
@@ -63,7 +64,9 @@
       	</form>
       </div>
       </div>
-     
+     <?php
+     if($_GET["send"]!=1){
+     ?>
       <div class="card">
         <h4>Vulnerability :</h4>
 <div class="well">
@@ -78,7 +81,7 @@
   </div>
 
         <?php
-      
+      }
       if($_GET["redirect"]){
           
         ?>
@@ -99,21 +102,30 @@
         $result = $conn->query($sql);
         if (mysqli_query($conn, $sql)) {
             echo "<div class=\"row\">";
-            echo "<h3>Your record Information is sent to your email</h3>";
+            echo "<h3>Your record Information is sent to ".$email."</h3>";
             echo "</div><hr><div class=\"row\" style=\"height:100%\"><h3>What has happened:</h3>";
             echo "<div class=\"well\">";
             if ($result->num_rows == 1) {
                 // output data of each row
-                echo "<p>The below given  information is sent to ";
+                echo "<p>This mail is sent to".$email;
                 while($row = $result->fetch_assoc()) {
-                    echo "id: " . $row["email"] ."  password: ". $row["password"]."</p><br>";
+                    echo "This email is in response to your request for your Intranet log in information.";
+                    echo "<br>Your USer ID: " . $row["email"] ."<br>Your password: ". $row["password"]."</p><br>";
+                    if($_SESSION['test']==7){
+                      ?>
+                      <div class="alert alert-success" role="alert">
+                          Now,you have full access to an account 
+                        </div>
+                      <?php
+                      $_SESSION['test']==1;
+                    }
                 }
             } 
             else if($result->num_rows>0){
-                $headers='From:root@anamika.com';
-                $mail=mail('root@anamika.com','hello','hjsdj',$headers);
+                $headers='From:root@anamika';
+                $mail=mail('root@anamika','hello','hjsdj',$headers);
                 $row = $result->fetch_assoc();
-                echo $mail."The response can vary for different applications, however here information ";
+                echo "The response can vary for different applications, however here information ";
                 echo "is being sent to first record from the database."."</p><br></div>"; 
             ?>
             <div class="card">
@@ -124,7 +136,10 @@
             <?php
             }
             else{
-                echo "No matching results found";
+              $msg="Unknown Email Address"; 
+                $_SESSION['msg']=$msg;
+           $loc="Location: http://localhost/forgotpassword.php?redirect=2";
+           header($loc);
             }
             echo "</div></div></div>";
 
