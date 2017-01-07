@@ -27,6 +27,7 @@
       <li><a href="test3.php">Test-3:Finding the table name </a></li>
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
       <li><a href="test5.php">Test-5:Brute force password testing </a></li>
+      <li class=""><a href="test6.php">Test-6:Adding a new member </a></li>
     </ul>
     <div class="well"> 
     The intention of this test is to see if the application constructs an SQL string literally without sanitizing.

@@ -26,6 +26,7 @@
       <li><a href="test3.php">Test-3:Finding the table name </a></li>
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
        <li class="active"><a href="">Test-5:Brute force password testing </a></li>
+       <li class=""><a href="test6.php">Test-6:Adding a new member </a></li>
     </ul>
     <div class="well"> 
   Do actual password testing by including the email name and password directly.Use the email address you discovered in Test-4.
