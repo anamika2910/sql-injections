@@ -1,5 +1,6 @@
 <?php
  require "dbconnect.php";
+ session_start();
 ?>
 <!DOCTYPE html>
 
@@ -21,11 +22,12 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="loginpage.html">Home</a></li>
       <li ><a href="forgotpassword.php">Test-1:Check the Structure</a></li>
-      <li ><a href="test2.php">Test-2:Schema field mapping</a></li>
+      <li ><a href="test3.php">Test-2:Schema field mapping</a></li>
       <li class="active"><a href="">Test-3:Finding the table name </a></li>
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
        <li><a href="test5.php">Test-5:Brute force password testing </a></li>
        <li class=""><a href="test6.php">Test-6:Adding a new member </a></li>
+       <li class=""><a href="test7.php">Test-7:Mail me a password </a></li>
     </ul>
     <div class="well"> 
     The application's built-in query already has the table name built into it, but we don't know what that name is.We can find it using various techniques eg. <b>subselect</b>.
@@ -40,7 +42,7 @@
           ?>
 
           <div class="row" style="height:100%">
-        <form  action="test2.php?try=1" method="post">
+        <form  action="test3.php?try=1" method="post">
           <div class="col-sm-2"></div>
           <div class="col-md-8">
           
@@ -80,6 +82,10 @@
 
         <?php
       }
+         if($_GET['check']==1||$_GET['redirect']==1){
+        echo "Query Executed:<br><div class=\"well\">".$_SESSION['query']."</div>";
+      
+      }
       if($_GET["redirect"]!=null){
 
         ?>
@@ -96,7 +102,7 @@
         ?>
         <div class="card">
         <div class="alert alert-success" role="alert">
-        We guessed the name correctly ,keep guessing. 
+        We guessed the name correctly. 
         </div>
       </div>
       <?php
@@ -108,17 +114,18 @@
       else{
         $email=$_POST["email"];
         $sql = sprintf("select email,password from info where email='%s';",$email);
+        $_SESSION['query']=$sql;
         $result = $conn->query($sql);
         if (mysqli_query($conn, $sql)) {
              $msg="Unknown Email Address" ;
              $_SESSION['msg']=$msg;
-           $loc="Location: http://localhost/test2.php?check=1";
+           $loc="Location: http://localhost/test3.php?check=1";
            header($loc); /* Redirect browser */
             exit();
         } else {
            $msg="<b>Error: </b> ".mysqli_error($conn) ;
            $_SESSION['msg']=$msg;
-           $loc="Location: http://localhost/test2.php?redirect=1";
+           $loc="Location: http://localhost/test3.php?redirect=1";
            header($loc); /* Redirect browser */
             exit();
         }

@@ -27,6 +27,7 @@
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
       <li class=""><a href="test5.php">Test-5:Brute force password testing </a></li>
        <li class="active"><a href="">Test-6:Adding a new member </a></li>
+       <li class=""><a href="test7.php">Test-7:Mail me a password </a></li>
     </ul>
     <div class="well"> 
   We know the partial structure of the members table, it seems like a plausible approach to attempt adding a new record to that table: if this works, we'll simply be able to login directly with our newly-inserted credentials.
@@ -46,7 +47,9 @@
           
             <?php 
             if($_GET["check"]!=0){
+            
             echo "<div class=\"well\">".$_SESSION['msg']."</div><br>";
+
               }
           ?>  <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -66,17 +69,21 @@
       Enter the following in email field : <b>x'; INSERT INTO tablename (fielname,fieldname) VALUES ('fielvalue','fieldvalue');-- </b><br>
     </div>
   </div>
+
    <?php 
+    if($_GET["check"]==1||$_GET["check"]==3){
+    echo "Query Executed:<br><div class=\"well\">".$_SESSION['query']."</div><br>";
+  }
             if($_GET["check"]==1){
             ?>
-  <div class="alert alert-info" role="alert">
-      The query executed successfully. Return to <a href="loginpage.html">home page </a> and login using the credentials you just entered.
+  <div class="alert alert-success" role="alert">
+      The query is executed. Return to <a href="loginpage.html">home page </a> and login using the credentials you just entered.
         </div>
         
       <?php
       
         }
-        if($_GET["check"]==3){
+        if($_GET["check"]==1){
             
         ?>
   <div class="alert alert-info" role="alert">
@@ -95,29 +102,25 @@
       else{
         $email=$_POST["email"];
         $sql = sprintf("select email,password from info where email='%s';",$email);
-
-        $result = $conn->query($sql);
+        $result=$conn->query("select count(*) as c from info");
+        $count= $result->fetch_assoc()["c"];
+        $_SESSION["query"]=$sql;
         if (mysqli_multi_query($conn, $sql)) {
-          if($result->num_rows>0){
-            $row = $result->fetch_assoc();
-              $msg="The information is sent to ".$row["email"] ;
+          
+              
+             $msg="Unknown Email Address" ;
              $_SESSION['msg']=$msg;
-             $loc="Location: http://localhost/test6.php?check=2";
+            
+             
+                $loc="Location: http://localhost/test6.php?check=1";
+             
            header($loc); /* Redirect browser */
             exit();
           }
           else{
-             $msg="Unknown Email Address" ;
-             $_SESSION['msg']=$msg;
-           $loc="Location: http://localhost/test6.php?check=1";
-           header($loc); /* Redirect browser */
-            exit();
-          }
-        }
-        
-        else{
           $msg=mysqli_error($conn);
           $_SESSION['msg']=$msg;
+          echo $msg;
           $loc="Location: http://localhost/test6.php?check=3";
            header($loc); 
         }

@@ -3,27 +3,27 @@
 <html>
 <body>
 
-Welcome
 <?php
 require "dbconnect.php";
 $email=$_POST["email"];
-echo $email;
+$password=$_POST["password"];
 $sql = "select password from info where email='".$email."';";
 $result = $conn->query($sql);
-
+$flag=0;
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "<p>id: " . $row["password"] ."</p><br>";
+        if($row['password']==$password){
+        	echo "Welocome ".$email;
+        	$flag=1;
+        	break;
+        }
+    }
+    if($flag==0){
+    	echo "Wrong Userid/password";
     }
 } else {
-    #echo "0 results";
-}
-
-if (mysqli_query($conn, $sql)) {
-    #echo "New record created successfully";
-} else {
-    #echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Wrong Userid/password";
 }
 
 $conn.close();

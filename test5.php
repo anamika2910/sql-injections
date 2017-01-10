@@ -27,6 +27,7 @@
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
        <li class="active"><a href="">Test-5:Brute force password testing </a></li>
        <li class=""><a href="test6.php">Test-6:Adding a new member </a></li>
+       <li class=""><a href="test7.php">Test-7:Mail me a password </a></li>
     </ul>
     <div class="well"> 
   Do actual password testing by including the email name and password directly.Use the email address you discovered in Test-4.
@@ -68,6 +69,10 @@
     </div>
   </div>
    <?php 
+   if($_GET['check']==1||$_GET['check']==2)
+   {
+      echo "Query Executed:<br><div class=\"well\">".$_SESSION['query']."</div>";
+   }
             if($_GET["check"]!=2){
             ?>
   <div class="alert alert-info" role="alert">
@@ -93,6 +98,7 @@
       else{
         $email=$_POST["email"];
         $sql = sprintf("select email,password from info where email='%s';",$email);
+        $_SESSION['query']=$sql;
         $result = $conn->query($sql);
         if (mysqli_query($conn, $sql)) {
           if($result->num_rows>0){
@@ -113,7 +119,11 @@
         }
         
         else{
-          echo mysqli_error($conn);
+          $msg="Unknown Email Address" ;
+             $_SESSION['msg']=$msg;
+           $loc="Location: http://localhost/test5.php?check=1";
+           header($loc); /* Redirect browser */
+            exit();
         }
 
         $conn.close();

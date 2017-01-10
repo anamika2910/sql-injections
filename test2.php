@@ -27,6 +27,7 @@
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
        <li><a href="test5.php">Test-5:Brute force password testing </a></li>
        <li class=""><a href="test6.php">Test-6:Adding a new member </a></li>
+       <li class=""><a href="test7.php">Test-7:Mail me a password </a></li>
     </ul>
     <div class="well"> 
     The first steps are to guess some field names.
@@ -81,6 +82,9 @@
 
         <?php
       }
+      if($_GET['check']==1||$_GET['redirect']==1){
+        echo "Query Executed:<br><div class=\"well\">".$_SESSION['query']."</div>";
+      }
       if($_GET["redirect"]!=null){
 
         ?>
@@ -92,8 +96,8 @@
       <?php
       
         }
-      if($_GET["check"]!=null){
-
+      if($_GET["check"]==1){
+         
         ?>
         <div class="card">
         <div class="alert alert-success" role="alert">
@@ -110,6 +114,7 @@
         $email=$_POST["email"];
         $sql = sprintf("select email,password from info where email='%s';",$email);
         $result = $conn->query($sql);
+        $_SESSION['query']=$sql;
         if (mysqli_query($conn, $sql)) {
              $msg="Unknown Email Address" ;
              $_SESSION['msg']=$msg;

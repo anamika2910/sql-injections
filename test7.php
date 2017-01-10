@@ -25,12 +25,12 @@
       <li ><a href="test2.php">Test-2:Schema field mapping</a></li>
       <li><a href="test3.php">Test-3:Finding the table name </a></li>
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
-      <li class=""><a href="">Test-5:Brute force password testing </a></li>
+      <li class=""><a href="test5.php">Test-5:Brute force password testing </a></li>
       <li class=""><a href="test6.php">Test-6:Adding a new member </a></li>
       <li class="active"><a href="test7.php">Test-7:Mail me a password </a></li>
     </ul>
     <div class="well"> 
- We might not able to add a new record to the database,but we can modify an existing one.
+ We might not be able to add a new record to the database,but we can modify an existing one.
    </div> 
     </div>
      
@@ -70,6 +70,9 @@
     </div>
   </div>
    <?php 
+   if($_GET['check']==1||($_GET['check'])==2){
+     echo "Query Executed:<br><div class=\"well\">".$_SESSION['query']."</div>";
+   }
             if($_GET["check"]==1){
               $_SESSION['test']=7;
             ?>
@@ -93,7 +96,9 @@
       else{
         $email=$_POST["email"];
         $sql = sprintf("select email,password from info where email='%s';",$email);
+        $_SESSION['query']=$sql;
         $result = $conn->query($sql);
+        
         if (mysqli_multi_query($conn, $sql)) {
           if($result->num_rows>0){
             $row = $result->fetch_assoc();
@@ -113,7 +118,11 @@
         }
         
         else{
-          echo mysqli_error($conn);
+          $msg="Unknown Email Address" ;
+             $_SESSION['msg']=$msg;
+           $loc="Location: http://localhost/test7.php?check=1";
+           header($loc); /* Redirect browser */
+            exit();
         }
 
         $conn.close();

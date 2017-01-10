@@ -29,6 +29,7 @@
       <li ><a href="test4.php">Test-4:Finding some users </a></li>
       <li><a href="test5.php">Test-5:Brute force password testing </a></li>
       <li class=""><a href="test6.php">Test-6:Adding a new member </a></li>
+      <li class=""><a href="test7.php">Test-7:Mail me a password </a></li>
     </ul>
     <div class="well"> 
     The intention of this test is to see if the application constructs an SQL string literally without sanitizing.
@@ -82,6 +83,9 @@
 
         <?php
       }
+      if($_GET["redirect"]==1||($_GET["redirect"])==2){
+       echo "Query Executed:<br><div class=\"well\">".$_SESSION['query']."</div>";
+     }
       if($_GET["redirect"]){
           
         ?>
@@ -100,16 +104,19 @@
         $email=$_POST["email"];
         $sql = sprintf("select email,password from info where email='%s';",$email);
         $result = $conn->query($sql);
+        $_SESSION['query']=$sql;
         if (mysqli_query($conn, $sql)) {
             echo "<div class=\"row\">";
-            echo "<h3>Your record Information is sent to ".$email."</h3>";
+             if ($result->num_rows == 1) {
+            
+            echo "<div class=\"well\">The information is sent to ".$email."</div>";
             echo "</div><hr><div class=\"row\" style=\"height:100%\"><h3>What has happened:</h3>";
             echo "<div class=\"well\">";
-            if ($result->num_rows == 1) {
+           
                 // output data of each row
                 echo "<p>This mail is sent to".$email;
                 while($row = $result->fetch_assoc()) {
-                    echo "This email is in response to your request for your Intranet log in information.";
+                    echo "<br>This email is in response to your request for your Intranet log in information.";
                     echo "<br>Your USer ID: " . $row["email"] ."<br>Your password: ". $row["password"]."</p><br>";
                     if($_SESSION['test']==7){
                       ?>
@@ -120,11 +127,13 @@
                       $_SESSION['test']==1;
                     }
                 }
+                  echo "</div>Query Executed:<br><div class=\"well\">".$_SESSION['query']."</div><br>";
             } 
             else if($result->num_rows>0){
-                $headers='From:root@anamika';
-                $mail=mail('root@anamika','hello','hjsdj',$headers);
                 $row = $result->fetch_assoc();
+                echo "<div class=\"well\" >The information is sent to ".$row["email"] ."</div>";
+            echo "</div><hr><div class=\"row\" style=\"height:100%\"><h3>What has happened:</h3>";
+            echo "<div class=\"well\">";
                 echo "The response can vary for different applications, however here information ";
                 echo "is being sent to first record from the database."."</p><br></div>"; 
             ?>
